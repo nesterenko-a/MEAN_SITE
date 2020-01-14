@@ -1,8 +1,30 @@
 const express = require('express');
 const router = express.Router();
-
-router.get('/req', (req, res) => {
-    res.send('Страница регистрации');
+const User = require('../models/user');
+// router.get('/req', (req, res) => {
+//     res.send('Страница регистрации');
+// });
+router.post('/req', (req, res) => {
+    let newUser = new User({
+        name: req.body.name,
+        email: req.body.email,
+        password: req.body.password
+    });
+    User.addUser(newUser, (err, user) => {
+        if (err) {
+            res.json(
+                {
+                    success: false,
+                    msg: "Пользователь не был добавлен"
+                });
+        } else {
+            res.json(
+                {
+                    success: true,
+                    msg: "Пользователь добавлен"
+                });
+        }
+    })
 });
 router.get('/auth', (req, res) => {
     res.send('Страница авторизации');
