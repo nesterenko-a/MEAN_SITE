@@ -11,6 +11,10 @@ const port = 3000;
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(passport.initialize());
+app.use(passport.session());
+
+require('./config/passport')(passport);
 //* Соединени и 2 лога по успешному и неуспешному соединению с БД
 mongoose.connect(config.db, { useNewUrlParser: true, useUnifiedTopology: true }, );
 mongoose.connection.on('connected', () => {
