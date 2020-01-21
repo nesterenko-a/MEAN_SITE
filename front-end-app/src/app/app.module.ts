@@ -10,6 +10,14 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomeComponent } from './home/home.component';
 
 import {RouterModule, Routes} from '@angular/router';
+import { FooterComponent } from './footer/footer.component';
+
+//* Для того чтобы работал парсер [(ngModel)]. Пример: <input type="text" [(ngModel)]="name" name="name" placeholder="Введите имя" class="form-control">
+import {FormsModule } from '@angular/forms'
+//* Добавляем провайлер
+import {CheckFormService } from './check-form.service' 
+//* Для добавления всплывающих сообщений. npm install angular2-flash-messages --save
+import { FlashMessagesModule } from 'angular2-flash-messages';
 
 const appRoute: Routes = [
   {path: '', component: HomeComponent},
@@ -24,14 +32,19 @@ const appRoute: Routes = [
     RegComponent,
     AuthComponent,
     DashboardComponent,
-    HomeComponent
+    HomeComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    RouterModule.forRoot(appRoute)
+    RouterModule.forRoot(appRoute),
+    FormsModule, // Для того чтобы работал парсер [(ngModel)]. Пример: <input type="text" [(ngModel)]="name" name="name" placeholder="Введите имя" class="form-control">
+    FlashMessagesModule.forRoot()
   ],
-  providers: [],
+  providers: [
+    [CheckFormService] // Добавляем провайлер и сюда.
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
