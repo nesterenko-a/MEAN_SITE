@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { CheckFormService } from '../check-form.service';
 //* Для добавления всплывающих сообщений. npm install angular2-flash-messages --save
 import { FlashMessagesService } from 'angular2-flash-messages';
+
+import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-reg',
   templateUrl: './reg.component.html',
@@ -16,7 +19,9 @@ export class RegComponent implements OnInit {
 
   constructor(
     private checkFrom: CheckFormService,
-    private flashMessages: FlashMessagesService 
+    private flashMessages: FlashMessagesService,
+    private router: Router,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
@@ -56,7 +61,23 @@ export class RegComponent implements OnInit {
       return false;
     } else {
       console.log("Всё введено");
+      this.authService.registerUser(user).subscribe(data => {
+        if (!data.success){
+          this.flashMessages.show(data.msg, {
+            cssClass: "alert-danger",
+            timeout: 4000
+          });
+          this.router.navigate(['/reg']);
+        } else {
+          this.flashMessages.show(data.msg, {
+            cssClass: "alert-success",
+            timeout: 2000
+          });
+          this.router.navigate(['/auth']);
+        }
+      });
       return false;
     }
+
   }
 }

@@ -18,6 +18,10 @@ import {FormsModule } from '@angular/forms'
 import {CheckFormService } from './check-form.service' 
 //* Для добавления всплывающих сообщений. npm install angular2-flash-messages --save
 import { FlashMessagesModule } from 'angular2-flash-messages';
+//* Сервис авторизации
+import { AuthService } from './auth.service'
+//* Для http отправки на серверную часть NodeJS
+import { HttpModule } from '@angular/http';
 
 const appRoute: Routes = [
   {path: '', component: HomeComponent},
@@ -40,10 +44,12 @@ const appRoute: Routes = [
     AppRoutingModule,
     RouterModule.forRoot(appRoute),
     FormsModule, // Для того чтобы работал парсер [(ngModel)]. Пример: <input type="text" [(ngModel)]="name" name="name" placeholder="Введите имя" class="form-control">
-    FlashMessagesModule.forRoot()
+    FlashMessagesModule.forRoot(),
+    HttpModule
   ],
   providers: [
-    [CheckFormService] // Добавляем провайлер и сюда.
+    CheckFormService,
+    AuthService // Добавляем провайлер и сюда.
   ],
   bootstrap: [AppComponent]
 })

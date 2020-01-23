@@ -9,10 +9,11 @@ const config = require('../config/db');
 //     res.send('Страница регистрации');
 // });
 //* Регистрация
-router.post('/req', (req, res) => {
+router.post('/reg', (req, res) => {
     let newUser = new User({
         name: req.body.name,
         email: req.body.email,
+        login: req.body.login,
         password: req.body.password
     });
     User.addUser(newUser, (err, user) => {

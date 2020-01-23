@@ -32,9 +32,10 @@ app.use(cors());
 app.use(bodyParser.json());
 
 //* Обработка URL адресов
-app.get('/', (req, res) => {
-    res.send({somes1: "some json"});
-});
+//app.get('/', (req, res) => {
+//    res.send({somes1: "some json"});
+//});
+
 app.use('/account',account);
 
 
