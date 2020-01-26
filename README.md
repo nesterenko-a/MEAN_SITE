@@ -20,3 +20,7 @@
 - npm install @angular/http@latest
 - import { HttpModule } from '@angular/http';
 - return this.http.post(http://localhost:3000/account/reg', user, {headers: headers}).map(res => res.json());
+
+## Для закрытого доступа к странице если ты не авторизован (JWT - JSON WEB TOKEN) https://www.youtube.com/watch?v=LNOZJUJTZWE
+- npm install angular2-jwt --save https://www.npmjs.com/package/angular2-jwt
+- npm install rxjs-compat --save 

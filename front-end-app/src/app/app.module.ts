@@ -22,12 +22,15 @@ import { FlashMessagesModule } from 'angular2-flash-messages';
 import { AuthService } from './auth.service'
 //* Для http отправки на серверную часть NodeJS
 import { HttpModule } from '@angular/http';
+//* Наш самописный файл для авторизации
+import { IsLoggedIn } from './isLogged.guard';
+
 
 const appRoute: Routes = [
   {path: '', component: HomeComponent},
   {path: 'reg', component: RegComponent},
   {path: 'auth', component: AuthComponent},
-  {path: 'dashboard', component:DashboardComponent}
+  {path: 'dashboard', component:DashboardComponent, canActivate: [IsLoggedIn]} // если canActivate вернет нам true то переход будет возможен, если нет то нет :-)
 ];
 @NgModule({
   declarations: [
@@ -45,11 +48,12 @@ const appRoute: Routes = [
     RouterModule.forRoot(appRoute),
     FormsModule, // Для того чтобы работал парсер [(ngModel)]. Пример: <input type="text" [(ngModel)]="name" name="name" placeholder="Введите имя" class="form-control">
     FlashMessagesModule.forRoot(),
-    HttpModule
+    HttpModule,
   ],
   providers: [
     CheckFormService,
-    AuthService // Добавляем провайлер и сюда.
+    AuthService, // Добавляем провайлер и сюда.
+    IsLoggedIn
   ],
   bootstrap: [AppComponent]
 })
